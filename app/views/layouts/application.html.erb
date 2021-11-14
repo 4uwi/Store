@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Store</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+
+
+  <ul style="background-color: #730E15;font-size: 16px;">
+    <li> <snap><%= link_to 'Home', root_path %> </snap></li>
+    <li> <snap><%= link_to 'Items', items_path %></snap></li>
+
+    <% if user_signed_in? %>
+
+      <%if current_user.admin? %>
+        <li> <snap><%= link_to 'New', new_item_path %> </snap></li>
+        <li>  <%= link_to 'Users', admins_path %></li>
+      <% end %>
+
+      <li><snap><%= link_to 'Profile', edit_user_registration_path %></snap></li>
+      <li> <snap> <%= link_to 'Sing Out', destroy_user_session_path, method: :delete %></snap></li>
+
+    <% else %>
+
+      <li> <snap> <%= link_to 'Sing Up', new_user_registration_path %></snap></li>
+      <li> <snap> <%= link_to 'Sing In', new_user_session_path %></snap></li>
+    <% end %>
+  </ul>
+
+  <%= render '/flashes' %>
+
+    <%= yield %>
+
+  </body>
+</html>
